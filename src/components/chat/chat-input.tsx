@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type React from "react";
+import { useRef } from "react";
 
 const formSchema = z.object({
   content: z.string().min(1, "Message cannot be empty."),
@@ -27,6 +28,7 @@ export interface ChatInputProps {
 }
 
 export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
+  const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,9 +48,17 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
     }
   };
 
+  const handleFocus = () => {
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300); // Delay to allow keyboard to appear
+  };
+
+
   return (
     <Form {...form}>
       <form
+        ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex items-start w-full gap-4"
       >
@@ -64,6 +74,7 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
                   className="resize-none min-h-[40px]"
                   {...field}
                   onKeyDown={handleKeyDown}
+                  onFocus={handleFocus}
                   disabled={isPending}
                 />
               </FormControl>
