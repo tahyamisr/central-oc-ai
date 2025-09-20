@@ -7,16 +7,16 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full bg-primary text-primary-foreground">
         <div className="container flex h-20 items-center justify-center">
           <div className="flex items-center gap-4">
-            <span className="font-bold text-2xl">
-              اللجنة المركزية للتنظيم
-            </span>
             <Image
               src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
               alt="شعار اللجنة المركزية للتنظيم والمراسم"
               width={50}
               height={50}
-              className="object-contain rounded-full bg-white p-1"
+              className="object-contain"
             />
+            <span className="font-bold text-2xl">
+              اللجنة المركزية للتنظيم
+            </span>
           </div>
         </div>
       </header>
