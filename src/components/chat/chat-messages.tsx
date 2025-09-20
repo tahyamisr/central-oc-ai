@@ -28,7 +28,7 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
 
   return (
     <ScrollArea className="h-full" viewportRef={scrollAreaRef}>
-      <div className="p-4 md:p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-6 pb-12">
         {messages.map((message) => (
           <div
             key={message.id}
