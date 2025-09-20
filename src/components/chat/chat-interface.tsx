@@ -129,9 +129,6 @@ export function ChatInterface() {
               onValueChange={setInput}
             />
         </div>
-        <Button onClick={handleSuggestion} variant="outline" className="mt-2" disabled={isPending || !isMounted}>
-            اقترح سؤال ✨
-        </Button>
       </div>
     </div>
   );
