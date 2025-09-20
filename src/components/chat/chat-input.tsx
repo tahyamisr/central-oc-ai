@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import type React from "react";
 import { useRef, useEffect } from "react";
-import { Textarea } from "@/components/ui/textarea";
+import TextareaAutosize from "react-textarea-autosize";
 
 const formSchema = z.object({
   content: z.string().min(1, "لا يمكن أن تكون الرسالة فارغة."),
@@ -88,7 +88,7 @@ export function ChatInput({ onSendMessage, isPending, value, onValueChange }: Ch
             <FormItem className="flex-1">
               <FormControl>
                 <div className="relative">
-                  <Textarea
+                  <TextareaAutosize
                     placeholder="اسأل عن أي شئ..."
                     className="resize-none w-full border-input border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
                     {...field}
@@ -97,6 +97,7 @@ export function ChatInput({ onSendMessage, isPending, value, onValueChange }: Ch
                     onFocus={handleFocus}
                     disabled={isPending}
                     rows={1}
+                    maxRows={6}
                   />
                 </div>
               </FormControl>
