@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { ChatMessages } from "./chat-messages";
 import { ChatInput, type ChatInputProps } from "./chat-input";
+import { cn } from "@/lib/utils";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
@@ -59,6 +60,22 @@ export function ChatInterface() {
       }
     });
   };
+
+  const hasUserMessages = messages.some((m) => m.role === "user");
+
+  if (!hasUserMessages) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full max-w-3xl">
+        <h1 className="text-2xl font-bold mb-4">Chat AI</h1>
+        <p className="text-muted-foreground mb-8">
+          Hello! How can I help you today?
+        </p>
+        <div className="w-full">
+          <ChatInput onSendMessage={handleSendMessage} isPending={isPending} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Card className="w-full max-w-3xl h-[75vh] flex flex-col shadow-xl">
