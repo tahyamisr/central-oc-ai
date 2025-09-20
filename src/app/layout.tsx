@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'المساعد الذكي للجنة المركزية',
+  title: 'لجنة التنظيم والمراسم المركزية',
   description: 'مساعد ذكي للجنة المركزية للتنظيم والمراسم',
 };
 
