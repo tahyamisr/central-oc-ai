@@ -62,7 +62,7 @@ export function ChatInterface() {
 
   if (!hasUserMessages) {
     return (
-      <div className="flex flex-col items-center justify-between w-full max-w-3xl text-center h-full">
+      <div className="flex flex-col items-center justify-between w-full max-w-5xl text-center h-full">
          <div className="flex-grow flex flex-col items-center justify-center">
             <Image
                 src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
@@ -85,7 +85,7 @@ export function ChatInterface() {
   }
 
   return (
-    <Card className="w-full max-w-3xl h-[75vh] flex flex-col shadow-none border-none">
+    <Card className="w-full max-w-5xl h-[75vh] flex flex-col shadow-none border-none">
       <CardContent className="flex-1 overflow-hidden p-0">
         <ChatMessages messages={messages} isPending={isPending} />
       </CardContent>
