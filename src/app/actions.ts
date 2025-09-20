@@ -17,7 +17,7 @@ export async function getAIResponse(
     console.error(error);
     return {
       success: false,
-      error: "Sorry, I encountered an error. Please try again.",
+      error: "عفواً، حدث خطأ. برجاء المحاولة مرة أخرى.",
     };
   }
 }

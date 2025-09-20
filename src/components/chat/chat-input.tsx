@@ -17,7 +17,7 @@ import type React from "react";
 import { useRef } from "react";
 
 const formSchema = z.object({
-  content: z.string().min(1, "Message cannot be empty."),
+  content: z.string().min(1, "لا يمكن أن تكون الرسالة فارغة."),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -69,7 +69,7 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
             <FormItem className="flex-1">
               <FormControl>
                 <Textarea
-                  placeholder="Type your message... (Ctrl+Enter to send)"
+                  placeholder="اكتب رسالتك... (Ctrl+Enter للإرسال)"
                   minRows={1}
                   maxRows={5}
                   className="resize-none min-h-[40px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
@@ -88,7 +88,7 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
           size="icon"
           className="h-10 w-10 shrink-0"
           disabled={isPending}
-          aria-label="Send message"
+          aria-label="إرسال رسالة"
         >
           {isPending ? (
             <Loader2 className="h-5 w-5 animate-spin" />

@@ -14,13 +14,14 @@ import {
 import { ChatMessages } from "./chat-messages";
 import { ChatInput, type ChatInputProps } from "./chat-input";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
       role: "assistant",
-      content: "Hello! How can I help you today?",
+      content: "أهلاً بك! أنا المساعد الذكي للجنة المركزية. كيف يمكنني مساعدتك اليوم؟",
     },
   ]);
   const [isPending, startTransition] = useTransition();
@@ -52,7 +53,7 @@ export function ChatInterface() {
       } else {
         toast({
           variant: "destructive",
-          title: "Error",
+          title: "خطأ",
           description: result.error,
         });
         // Remove the user message if AI fails
@@ -65,10 +66,17 @@ export function ChatInterface() {
 
   if (!hasUserMessages) {
     return (
-      <div className="flex flex-col items-center justify-center w-full max-w-3xl">
-        <h1 className="text-2xl font-bold mb-4">Chat AI</h1>
-        <p className="text-muted-foreground mb-8">
-          Hello! How can I help you today?
+      <div className="flex flex-col items-center justify-center w-full max-w-3xl text-center">
+         <Image
+            src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
+            alt="شعار اللجنة المركزية للتنظيم والمراسم"
+            width={240}
+            height={80}
+            className="object-contain mb-4"
+            priority
+          />
+        <p className="text-muted-foreground mb-8 text-lg">
+          أهلاً بك! أنا المساعد الذكي للجنة المركزية. كيف يمكنني مساعدتك اليوم؟
         </p>
         <div className="w-full">
           <ChatInput onSendMessage={handleSendMessage} isPending={isPending} />
@@ -80,7 +88,7 @@ export function ChatInterface() {
   return (
     <Card className="w-full max-w-3xl h-[75vh] flex flex-col shadow-xl">
       <CardHeader>
-        <CardTitle className="text-xl font-headline">AI Assistant</CardTitle>
+        <CardTitle className="text-xl font-headline">المساعد الذكي</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden p-0">
         <ChatMessages messages={messages} isPending={isPending} />

@@ -35,18 +35,18 @@ const prompt = ai.definePrompt({
   name: 'improveConversationFlowPrompt',
   input: { schema: ImproveConversationFlowInputSchema },
   output: { schema: ImproveConversationFlowOutputSchema },
-  prompt: `You are a helpful AI assistant engaged in a conversation with a user.
+  prompt: `أنت مساعد ذكاء اصطناعي مفيد وودود تتحدث باللهجة المصرية. تجري محادثة مع مستخدم.
 
   {% if conversationHistory %}
-  Here's the conversation history:
+  هذا هو سجل المحادثة:
   {{#each conversationHistory}}
   {{role}}: {{content}}
   {{/each}}
   {% endif %}
 
-  User's message: {{{userMessage}}}
+  رسالة المستخدم: {{{userMessage}}}
 
-  Please provide a response that continues the conversation naturally, considering the previous turns.`, // Handlebars here
+  يرجى تقديم رد يواصل المحادثة بشكل طبيعي، مع الأخذ في الاعتبار الأدوار السابقة.`, // Handlebars here
 });
 
 const improveConversationFlowFlow = ai.defineFlow(

@@ -1,5 +1,6 @@
 import { ChatInterface } from "@/components/chat/chat-interface";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -7,7 +8,13 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
           <div className="mr-4 hidden md:flex">
-            <h1 className="text-xl font-bold font-headline">Chat AI</h1>
+            <Image
+              src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
+              alt="شعار اللجنة المركزية للتنظيم والمراسم"
+              width={120}
+              height={40}
+              className="object-contain"
+            />
           </div>
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
             <ThemeToggle />
