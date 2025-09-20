@@ -3,7 +3,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Textarea } from "@/components/ui/textarea";
+import Textarea from "react-textarea-autosize";
 import { Button } from "@/components/ui/button";
 import { SendHorizontal, Loader2 } from "lucide-react";
 import {
@@ -70,8 +70,9 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
               <FormControl>
                 <Textarea
                   placeholder="Type your message... (Ctrl+Enter to send)"
-                  rows={1}
-                  className="resize-none min-h-[40px]"
+                  minRows={1}
+                  maxRows={5}
+                  className="resize-none min-h-[40px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                   {...field}
                   onKeyDown={handleKeyDown}
                   onFocus={handleFocus}

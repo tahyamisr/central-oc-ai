@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import type { Message } from "@/lib/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bot, User, Loader2 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface ChatMessagesProps {
   messages: Message[];
@@ -44,15 +46,27 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
             )}
             <div
               className={cn(
-                "max-w-[75%] rounded-lg p-3 text-sm",
+                "max-w-[85%] rounded-lg p-3 text-sm",
                 message.role === "user"
                   ? "bg-primary text-primary-foreground"
                   : "bg-accent text-accent-foreground"
               )}
             >
-              <p className="font-body text-base">{message.content}</p>
+              {message.role === "assistant" ? (
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  className="prose-styles"
+                  components={{
+                    p: ({ node, ...props }) => <p className="font-body text-base" {...props} />,
+                  }}
+                >
+                  {message.content}
+                </ReactMarkdown>
+              ) : (
+                <p className="font-body text-base">{message.content}</p>
+              )}
             </div>
-             {message.role === "user" && (
+            {message.role === "user" && (
               <Avatar className="h-8 w-8 shrink-0">
                 <AvatarFallback className="bg-accent">
                   <User className="h-5 w-5 text-accent-foreground" />

@@ -67,3 +67,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .prose-styles {
+    @apply prose dark:prose-invert prose-headings:font-headline prose-p:font-body prose-p:text-base;
+    @apply prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg;
+    @apply prose-code:before:content-none prose-code:after:content-none prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:bg-muted prose-code:text-muted-foreground;
+    @apply prose-blockquote:border-l-primary;
+    @apply prose-table:border prose-th:p-2 prose-td:p-2 prose-tr:border-b;
+  }
+}
