@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
@@ -65,37 +66,53 @@ export function ChatInterface() {
 
   const hasUserMessages = messages.some((m) => m.role === "user");
 
-  if (!hasUserMessages) {
-    return (
-      <div className="flex flex-col items-center justify-between w-full max-w-2xl text-center h-full">
-         <div className="flex-grow flex flex-col items-center justify-center">
-            <Image
-              src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
-              alt="شعار اتحاد طلاب تحيا مصر"
-              width={80}
-              height={80}
-              className="object-contain mb-6"
-            />
-            <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
-            <p className="text-foreground text-sm max-w-md mb-8">
-              موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
-            </p>
-         </div>
-        <div className="w-full sticky bottom-0 py-4">
-          <ChatInput onSendMessage={handleSendMessage} isPending={isPending || !isMounted} isInitial={true} />
-        </div>
+  const renderInitialView = () => (
+    <div className="flex flex-col items-center justify-between w-full max-w-2xl text-center h-full">
+       <div className="flex-grow flex flex-col items-center justify-center">
+          <Image
+            src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
+            alt="شعار اتحاد طلاب تحيا مصر"
+            width={80}
+            height={80}
+            className="object-contain mb-6"
+          />
+          <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
+          <p className="text-foreground text-sm max-w-md mb-8">
+            موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
+          </p>
+       </div>
+      <div className="w-full sticky bottom-0 py-4">
+        <ChatInput onSendMessage={handleSendMessage} isPending={isPending || !isMounted} isInitial={true} />
       </div>
-    );
-  }
+    </div>
+  );
 
-  return (
-    <Card className="w-full max-w-2xl h-[75vh] flex flex-col shadow-none border-none bg-transparent">
+  const renderChatView = () => (
+     <Card className="w-full max-w-2xl h-[75vh] flex flex-col shadow-none border-none bg-transparent">
       <CardContent className="flex-1 overflow-hidden p-0">
-        <ChatMessages messages={messages} isPending={isPending} />
+        {!hasUserMessages ? (
+           <div className="flex flex-col items-center justify-center h-full text-center">
+              <Image
+                src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
+                alt="شعار اتحاد طلاب تحيا مصر"
+                width={80}
+                height={80}
+                className="object-contain mb-6"
+              />
+              <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
+              <p className="text-foreground text-sm max-w-md">
+                موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
+              </p>
+           </div>
+        ) : (
+          <ChatMessages messages={messages} isPending={isPending} />
+        )}
       </CardContent>
       <CardFooter className="p-0 pt-4 border-t-0">
         <ChatInput onSendMessage={handleSendMessage} isPending={isPending || !isMounted} isInitial={false}/>
       </CardFooter>
     </Card>
   );
+
+  return hasUserMessages ? renderChatView() : renderInitialView();
 }
