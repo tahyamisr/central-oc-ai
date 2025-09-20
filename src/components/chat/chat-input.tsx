@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type React from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
@@ -29,7 +29,7 @@ export interface ChatInputProps {
   isInitial: boolean;
 }
 
-export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
+export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -37,6 +37,12 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
       content: "",
     },
   });
+
+  useEffect(() => {
+    if (isInitial && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, [isInitial]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     onSendMessage(data.content);
