@@ -7,12 +7,14 @@ const WEBHOOK_URL = "https://submit.tahyamisrsu.com/webhook/OC-AI";
 
 export async function getAIResponse(
   history: Omit<Message, "id">[],
-  userMessage: string
+  userMessage: string,
+  userId: string
 ) {
-  // The webhook expects the full history, including the latest user message.
+  // The webhook expects the full history, the latest user message, and a userId.
   const payload = {
     conversationHistory: history,
     userMessage: userMessage,
+    userId: userId,
   };
 
   try {

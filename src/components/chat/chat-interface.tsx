@@ -25,12 +25,28 @@ export function ChatInterface() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    let storedUserId = localStorage.getItem('chat_userId');
+    if (!storedUserId) {
+      storedUserId = crypto.randomUUID();
+      localStorage.setItem('chat_userId', storedUserId);
+    }
+    setUserId(storedUserId);
   }, []);
 
   const handleSendMessage = (content: string) => {
+    if (!userId) {
+      toast({
+        variant: "destructive",
+        title: "خطأ",
+        description: "لم يتم تحديد هوية المستخدم. يرجى تحديث الصفحة والمحاولة مرة أخرى.",
+      });
+      return;
+    }
+
     const userMessage: Message = {
       id: crypto.randomUUID(),
       role: "user",
@@ -44,7 +60,7 @@ export function ChatInterface() {
       const historyForAI = newMessages
         .map(({ id, ...rest }) => rest);
 
-      const result = await getAIResponse(historyForAI, content);
+      const result = await getAIResponse(historyForAI, content, userId);
 
       if (result.success) {
         const assistantMessage: Message = {
