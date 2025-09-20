@@ -43,17 +43,19 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
     form.reset();
   };
 
+  const ensureVisible = () => {
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       form.handleSubmit(onSubmit)();
+    } else {
+      ensureVisible();
     }
-  };
-
-  const handleFocus = () => {
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 300); // Delay to allow keyboard to appear
   };
 
 
@@ -94,7 +96,8 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
                     className="resize-none w-full border-none bg-transparent px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
                     {...field}
                     onKeyDown={handleKeyDown}
-                    onFocus={handleFocus}
+                    onFocus={ensureVisible}
+                    onClick={ensureVisible}
                     disabled={isPending}
                   />
                    <div className="absolute left-2 top-1/2 -translate-y-1/2">
