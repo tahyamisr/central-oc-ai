@@ -15,13 +15,7 @@ import { ChatInput } from "./chat-input";
 import Image from "next/image";
 
 export function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "assistant",
-      content: "أهلاً بك! أنا المساعد الذكي. كيف يمكنني مساعدتك اليوم؟",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
