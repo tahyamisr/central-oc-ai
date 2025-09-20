@@ -25,8 +25,8 @@ export async function getAIResponse(
     });
 
     if (!response.ok) {
-      console.error("Webhook response not OK:", response.status, response.statusText);
       const errorBody = await response.text();
+      console.error("Webhook response not OK:", response.status, response.statusText);
       console.error("Webhook error body:", errorBody);
       return {
         success: false,
