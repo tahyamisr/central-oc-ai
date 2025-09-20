@@ -7,9 +7,6 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full bg-primary text-primary-foreground">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <div className="flex items-center gap-4">
-            <span className="font-bold text-xl">
-              لجنة التنظيم والمراسم المركزية
-            </span>
             <Image
               src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
               alt="شعار اتحاد طلاب تحيا مصر"
@@ -17,6 +14,9 @@ export default function Home() {
               height={48}
               className="object-contain"
             />
+            <span className="font-bold text-xl">
+              لجنة التنظيم والمراسم المركزية
+            </span>
           </div>
         </div>
       </header>
