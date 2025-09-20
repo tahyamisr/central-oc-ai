@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'اتحاد طلاب تحيا مصر',
+  title: 'لجنة التنظيم والمراسم المركزية',
   description: 'مساعد ذكي لاتحاد طلاب تحيا مصر',
 };
 
