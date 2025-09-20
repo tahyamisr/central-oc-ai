@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -33,12 +34,11 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
           <div
             key={message.id}
             className={cn(
-              "flex items-start gap-4",
-              message.role === "user" && "justify-end"
+              "flex items-start gap-4 justify-end"
             )}
           >
             {message.role === "assistant" && (
-              <Avatar className="h-8 w-8 shrink-0">
+              <Avatar className="h-8 w-8 shrink-0 order-last">
                 <AvatarImage src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1" alt="Bot"/>
                 <AvatarFallback className="bg-primary/20">
                   <Bot className="h-5 w-5 text-primary" />
@@ -47,7 +47,7 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
             )}
             <div
               className={cn(
-                "max-w-[85%] rounded-lg p-3 text-sm shadow-sm",
+                "max-w-[85%] rounded-lg p-3 text-sm shadow-sm text-right",
                 message.role === "user"
                   ? "bg-accent text-accent-foreground"
                   : "bg-card text-card-foreground"
@@ -77,8 +77,8 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
           </div>
         ))}
         {isPending && (
-          <div className="flex items-start gap-4">
-            <Avatar className="h-8 w-8 shrink-0">
+          <div className="flex items-start gap-4 justify-end">
+            <Avatar className="h-8 w-8 shrink-0 order-last">
                <AvatarImage src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1" alt="Bot"/>
               <AvatarFallback className="bg-primary/20">
                 <Bot className="h-5 w-5 text-primary" />
