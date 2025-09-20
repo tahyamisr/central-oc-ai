@@ -79,18 +79,15 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
       >
         <Button
           type="submit"
-          size="default"
-          className="h-10 px-4 shrink-0 rounded-md"
+          size="icon"
+          className="h-10 w-10 shrink-0 rounded-md"
           disabled={isPending || !isValid}
           aria-label="إرسال"
         >
           {isPending ? (
             <Loader2 className="h-5 w-5 animate-spin" />
           ) : (
-            <>
-              <Send className="h-4 w-4" />
-              <span>إرسال</span>
-            </>
+            <Send className="h-5 w-5" />
           )}
         </Button>
         <FormField
