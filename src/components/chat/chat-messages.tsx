@@ -47,10 +47,10 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
             )}
             <div
               className={cn(
-                "max-w-[85%] rounded-lg p-3 text-sm",
+                "max-w-[85%] rounded-lg p-3 text-sm shadow-sm",
                 message.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-accent text-accent-foreground"
+                  ? "bg-[#c2a38f] text-white"
+                  : "bg-card text-card-foreground"
               )}
             >
               {message.role === "assistant" ? (
@@ -84,7 +84,7 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
                 <Bot className="h-5 w-5 text-primary" />
               </AvatarFallback>
             </Avatar>
-            <div className="max-w-[75%] rounded-lg p-3 text-sm bg-accent text-accent-foreground flex items-center">
+            <div className="max-w-[75%] rounded-lg p-3 text-sm bg-card text-card-foreground flex items-center shadow-sm">
               <Loader2 className="h-5 w-5 animate-spin" />
             </div>
           </div>

@@ -4,8 +4,8 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'لجنة التنظيم والمراسم المركزية',
-  description: 'مساعد ذكي للجنة المركزية للتنظيم والمراسم',
+  title: 'اتحاد طلاب تحيا مصر',
+  description: 'مساعد ذكي لاتحاد طلاب تحيا مصر',
 };
 
 export default function RootLayout({
@@ -23,8 +23,8 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Textarea from "react-textarea-autosize";
 import { Button } from "@/components/ui/button";
-import { SendHorizontal, Loader2, Mic } from "lucide-react";
+import { Send, Loader2, Mic } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -29,7 +29,7 @@ export interface ChatInputProps {
   isInitial: boolean;
 }
 
-export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProps) {
+export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -44,10 +44,7 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
   };
 
   const ensureVisible = () => {
-    // A small delay helps ensure the keyboard has appeared on mobile devices
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -65,22 +62,22 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
       <form
         ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(
-          "flex items-center w-full gap-2 p-2 rounded-full",
-          isInitial ? "bg-white border-2 border-primary" : "border-t"
-        )}
+        className="flex items-center w-full gap-2"
       >
         <Button
           type="submit"
-          size="icon"
-          className="h-10 w-10 shrink-0 rounded-full bg-red-500 hover:bg-red-600 text-white"
+          size="default"
+          className="h-10 px-4 shrink-0 rounded-md bg-[#c2a38f] hover:bg-[#b1927f] text-white"
           disabled={isPending}
-          aria-label="إرسال رسالة"
+          aria-label="إرسال"
         >
           {isPending ? (
             <Loader2 className="h-5 w-5 animate-spin" />
           ) : (
-            <SendHorizontal className="h-5 w-5 -rotate-45" />
+            <>
+              <Send className="h-4 w-4" />
+              <span>إرسال</span>
+            </>
           )}
         </Button>
         <FormField
@@ -94,14 +91,14 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
                     placeholder="اسأل عن أي شئ..."
                     minRows={1}
                     maxRows={5}
-                    className="resize-none w-full border-none bg-transparent px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
+                    className="resize-none w-full border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right pr-10"
                     {...field}
                     onKeyDown={handleKeyDown}
                     onFocus={ensureVisible}
                     onClick={ensureVisible}
                     disabled={isPending}
                   />
-                   <div className="absolute left-2 top-1/2 -translate-y-1/2">
+                   <div className="absolute right-2 top-1/2 -translate-y-1/2">
                     <Mic className="h-5 w-5 text-gray-400" />
                   </div>
                 </div>
