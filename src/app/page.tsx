@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
-          <div className="mr-4 hidden md:flex">
+          <div className="mr-4 hidden md:flex items-center gap-2">
             <Image
               src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
               alt="شعار اللجنة المركزية للتنظيم والمراسم"
@@ -15,6 +15,9 @@ export default function Home() {
               height={50}
               className="object-contain"
             />
+            <span className="font-bold text-lg">
+              لجنة التنظيم والمراسم المركزية
+            </span>
           </div>
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
             <ThemeToggle />
