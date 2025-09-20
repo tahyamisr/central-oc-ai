@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import type React from "react";
 import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   content: z.string().min(1, "لا يمكن أن تكون الرسالة فارغة."),
@@ -38,9 +37,15 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
     },
   });
 
+  const ensureVisible = () => {
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  };
+
   useEffect(() => {
-    if (isInitial && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    if (isInitial) {
+      ensureVisible();
     }
   }, [isInitial]);
 
@@ -49,9 +54,6 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
     form.reset();
   };
 
-  const ensureVisible = () => {
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
