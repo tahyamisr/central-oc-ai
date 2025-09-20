@@ -35,7 +35,10 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
     defaultValues: {
       content: "",
     },
+    mode: "onChange",
   });
+
+  const { isValid } = form.formState;
 
   const ensureVisible = () => {
     setTimeout(() => {
@@ -57,8 +60,10 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      form.handleSubmit(onSubmit)();
+      if (isValid) {
+        event.preventDefault();
+        form.handleSubmit(onSubmit)();
+      }
     } else {
       ensureVisible();
     }
@@ -75,8 +80,8 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
         <Button
           type="submit"
           size="default"
-          className="h-10 px-4 shrink-0 rounded-md bg-[#c2a38f] hover:bg-[#b1927f] text-white"
-          disabled={isPending}
+          className="h-10 px-4 shrink-0 rounded-md bg-[#c2a38f] hover:bg-[#b1927f] text-white disabled:bg-opacity-50"
+          disabled={isPending || !isValid}
           aria-label="إرسال"
         >
           {isPending ? (
