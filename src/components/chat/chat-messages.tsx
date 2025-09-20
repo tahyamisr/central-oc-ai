@@ -1,0 +1,79 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import type { Message } from "@/lib/types";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Bot, User, Loader2 } from "lucide-react";
+
+interface ChatMessagesProps {
+  messages: Message[];
+  isPending: boolean;
+}
+
+export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTo({
+        top: scrollAreaRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
+  return (
+    <ScrollArea className="h-full" viewportRef={scrollAreaRef}>
+      <div className="p-4 md:p-6 space-y-6">
+        {messages.map((message) => (
+          <div
+            key={message.id}
+            className={cn(
+              "flex items-start gap-4",
+              message.role === "user" && "justify-end"
+            )}
+          >
+            {message.role === "assistant" && (
+              <Avatar className="h-8 w-8 shrink-0">
+                <AvatarFallback className="bg-primary/20">
+                  <Bot className="h-5 w-5 text-primary" />
+                </AvatarFallback>
+              </Avatar>
+            )}
+            <div
+              className={cn(
+                "max-w-[75%] rounded-lg p-3 text-sm",
+                message.role === "user"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-accent text-accent-foreground"
+              )}
+            >
+              <p className="font-body text-base">{message.content}</p>
+            </div>
+             {message.role === "user" && (
+              <Avatar className="h-8 w-8 shrink-0">
+                <AvatarFallback className="bg-accent">
+                  <User className="h-5 w-5 text-accent-foreground" />
+                </AvatarFallback>
+              </Avatar>
+            )}
+          </div>
+        ))}
+        {isPending && (
+          <div className="flex items-start gap-4">
+            <Avatar className="h-8 w-8 shrink-0">
+              <AvatarFallback className="bg-primary/20">
+                <Bot className="h-5 w-5 text-primary" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="max-w-[75%] rounded-lg p-3 text-sm bg-accent text-accent-foreground flex items-center">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          </div>
+        )}
+      </div>
+    </ScrollArea>
+  );
+}
