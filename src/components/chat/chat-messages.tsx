@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import type { Message } from "@/lib/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bot, User, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -39,6 +39,7 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
           >
             {message.role === "assistant" && (
               <Avatar className="h-8 w-8 shrink-0">
+                <AvatarImage src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1" alt="Bot"/>
                 <AvatarFallback className="bg-primary/20">
                   <Bot className="h-5 w-5 text-primary" />
                 </AvatarFallback>
@@ -78,6 +79,7 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
         {isPending && (
           <div className="flex items-start gap-4">
             <Avatar className="h-8 w-8 shrink-0">
+               <AvatarImage src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1" alt="Bot"/>
               <AvatarFallback className="bg-primary/20">
                 <Bot className="h-5 w-5 text-primary" />
               </AvatarFallback>

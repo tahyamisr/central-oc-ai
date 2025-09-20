@@ -8,12 +8,9 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { ChatMessages } from "./chat-messages";
-import { ChatInput, type ChatInputProps } from "./chat-input";
-import { cn } from "@/lib/utils";
+import { ChatInput } from "./chat-input";
 import Image from "next/image";
 
 export function ChatInterface() {
@@ -27,7 +24,7 @@ export function ChatInterface() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
-  const handleSendMessage: ChatInputProps["onSendMessage"] = (content) => {
+  const handleSendMessage = (content: string) => {
     const userMessage: Message = {
       id: crypto.randomUUID(),
       role: "user",
@@ -56,7 +53,6 @@ export function ChatInterface() {
           title: "خطأ",
           description: result.error,
         });
-        // Remove the user message if AI fails
         setMessages((prev) => prev.slice(0, -1));
       }
     });
@@ -66,35 +62,35 @@ export function ChatInterface() {
 
   if (!hasUserMessages) {
     return (
-      <div className="flex flex-col items-center justify-center w-full max-w-3xl text-center">
-         <Image
-            src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
-            alt="شعار اللجنة المركزية للتنظيم والمراسم"
-            width={200}
-            height={67}
-            className="object-contain mb-4"
-            priority
-          />
-        <p className="text-muted-foreground mb-8 text-lg">
-          أهلاً بك! أنا المساعد الذكي للجنة المركزية. كيف يمكنني مساعدتك اليوم؟
-        </p>
-        <div className="w-full">
-          <ChatInput onSendMessage={handleSendMessage} isPending={isPending} />
+      <div className="flex flex-col items-center justify-between w-full max-w-3xl text-center h-full">
+         <div className="flex-grow flex flex-col items-center justify-center">
+            <Image
+                src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
+                alt="شعار اللجنة المركزية للتنظيم والمراسم"
+                width={150}
+                height={150}
+                className="object-contain mb-6"
+                priority
+            />
+            <h1 className="text-4xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
+            <p className="text-muted-foreground text-lg max-w-md">
+            انا المساعد الذكي الخاص باللجنة المركزية للتنظيم والمراسم
+            </p>
+         </div>
+        <div className="w-full sticky bottom-0 py-4">
+          <ChatInput onSendMessage={handleSendMessage} isPending={isPending} isInitial={true} />
         </div>
       </div>
     );
   }
 
   return (
-    <Card className="w-full max-w-3xl h-[75vh] flex flex-col shadow-xl">
-      <CardHeader>
-        <CardTitle className="text-xl font-headline">المساعد الذكي</CardTitle>
-      </CardHeader>
+    <Card className="w-full max-w-3xl h-[75vh] flex flex-col shadow-none border-none">
       <CardContent className="flex-1 overflow-hidden p-0">
         <ChatMessages messages={messages} isPending={isPending} />
       </CardContent>
       <CardFooter className="p-4 border-t">
-        <ChatInput onSendMessage={handleSendMessage} isPending={isPending} />
+        <ChatInput onSendMessage={handleSendMessage} isPending={isPending} isInitial={false}/>
       </CardFooter>
     </Card>
   );
