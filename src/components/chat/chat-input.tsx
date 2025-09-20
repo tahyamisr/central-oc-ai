@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type React from "react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
@@ -27,23 +27,32 @@ export interface ChatInputProps {
   onSendMessage: (content: string) => void;
   isPending: boolean;
   isInitial: boolean;
+  value: string;
+  onValueChange: (value: string) => void;
 }
 
-export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
+export function ChatInput({ onSendMessage, isPending, value, onValueChange }: ChatInputProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
     },
+    values: {
+      content: value,
+    },
     mode: "onChange",
   });
 
   const { isValid } = form.formState;
 
+  useEffect(() => {
+    form.setValue("content", value);
+  }, [value, form]);
+
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     onSendMessage(data.content);
-    form.reset();
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -55,7 +64,9 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
     }
   };
 
-  const handleInput = () => {
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onValueChange(e.target.value);
+    form.setValue("content", e.target.value, { shouldValidate: true });
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
@@ -81,7 +92,7 @@ export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
                     placeholder="اسأل عن أي شئ..."
                     className="resize-none w-full border-input border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
                     {...field}
-                    onInput={handleInput}
+                    onChange={handleInput}
                     onKeyDown={handleKeyDown}
                     onFocus={handleFocus}
                     disabled={isPending}
