@@ -40,11 +40,11 @@ export function ChatInterface() {
     setMessages(newMessages);
 
     startTransition(async () => {
-      const history = newMessages
-        .filter((m) => m.role !== "system")
+      // Pass the entire message history to the action, but strip out the IDs
+      const historyForAI = newMessages
         .map(({ id, ...rest }) => rest);
 
-      const result = await getAIResponse(history.slice(0, -1), content);
+      const result = await getAIResponse(historyForAI, content);
 
       if (result.success) {
         const assistantMessage: Message = {
@@ -59,6 +59,7 @@ export function ChatInterface() {
           title: "خطأ",
           description: result.error,
         });
+        // If the API call fails, remove the user's message from the UI
         setMessages((prev) => prev.slice(0, -1));
       }
     });

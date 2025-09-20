@@ -9,6 +9,7 @@ export async function getAIResponse(
   history: Omit<Message, "id">[],
   userMessage: string
 ) {
+  // The webhook expects the full history, including the latest user message.
   const payload = {
     conversationHistory: history,
     userMessage: userMessage,
@@ -35,18 +36,23 @@ export async function getAIResponse(
 
     const result = await response.json();
     
-    if (result && result.aiResponse) {
+    // The webhook is expected to return a JSON object with an `aiResponse` field.
+    if (result && typeof result.aiResponse === 'string') {
         return { success: true, response: result.aiResponse };
     } else {
         console.error("Invalid response format from webhook:", result);
-        return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم." };
+        return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم. الصيغة المتوقعة: { aiResponse: '...' }" };
     }
 
   } catch (error) {
     console.error("Error calling webhook:", error);
+    // Check for specific fetch errors if possible, otherwise return a generic message.
+    if (error instanceof TypeError) { // Often indicates a network error
+        return { success: false, error: "عفواً، حدث خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت."};
+    }
     return {
       success: false,
-      error: "عفواً، حدث خطأ. برجاء المحاولة مرة أخرى.",
+      error: "عفواً، حدث خطأ غير متوقع. برجاء المحاولة مرة أخرى.",
     };
   }
 }
