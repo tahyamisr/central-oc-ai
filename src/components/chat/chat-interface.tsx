@@ -13,6 +13,7 @@ import { ChatMessages } from "./chat-messages";
 import { ChatInput } from "./chat-input";
 import { MessageSquare, Send } from "lucide-react";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const suggestionPrompts = [
   "رؤية الاتحاد ورسالته وأهدافه",
@@ -83,9 +84,13 @@ export function ChatInterface() {
     return (
       <div className="flex flex-col items-center justify-between w-full max-w-2xl text-center h-full">
          <div className="flex-grow flex flex-col items-center justify-center">
-            <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center mb-6">
-              <MessageSquare className="w-10 h-10 text-primary-foreground" />
-            </div>
+            <Image
+              src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
+              alt="شعار اتحاد طلاب تحيا مصر"
+              width={64}
+              height={64}
+              className="object-contain mb-6"
+            />
             <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
             <p className="text-muted-foreground text-sm max-w-md mb-8">
               موقعي أساعدك في أي سؤال متعلق بالكيان الشبابي
