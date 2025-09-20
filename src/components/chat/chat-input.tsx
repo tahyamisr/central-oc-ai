@@ -40,15 +40,11 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
 
   const { isValid } = form.formState;
 
-  const ensureVisible = () => {
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-  };
-
   useEffect(() => {
     if (isInitial) {
-      ensureVisible();
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
     }
   }, [isInitial]);
 
@@ -64,8 +60,6 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
         event.preventDefault();
         form.handleSubmit(onSubmit)();
       }
-    } else {
-      ensureVisible();
     }
   };
 
@@ -89,8 +83,6 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
                     className="resize-none w-full border-input border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
                     {...field}
                     onKeyDown={handleKeyDown}
-                    onFocus={ensureVisible}
-                    onClick={ensureVisible}
                     disabled={isPending}
                     rows={1}
                   />
