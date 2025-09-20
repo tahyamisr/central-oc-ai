@@ -92,7 +92,7 @@ export function ChatInterface() {
               className="object-contain mb-6"
             />
             <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
-            <p className="text-muted-foreground text-sm max-w-md mb-8">
+            <p className="text-foreground text-sm max-w-md mb-8">
               موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
             </p>
 
