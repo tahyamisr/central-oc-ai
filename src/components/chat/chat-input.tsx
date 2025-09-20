@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type React from "react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
@@ -29,7 +29,7 @@ export interface ChatInputProps {
   isInitial: boolean;
 }
 
-export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProps) {
+export function ChatInput({ onSendMessage, isPending }: ChatInputProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -41,19 +41,10 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
 
   const { isValid } = form.formState;
 
-  useEffect(() => {
-    if (isInitial) {
-      setTimeout(() => {
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    }
-  }, [isInitial]);
-
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     onSendMessage(data.content);
     form.reset();
   };
-
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -64,10 +55,13 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
     }
   };
 
+  const handleInput = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   const handleFocus = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
-
 
   return (
     <Form {...form}>
@@ -87,6 +81,7 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
                     placeholder="اسأل عن أي شئ..."
                     className="resize-none w-full border-input border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
                     {...field}
+                    onInput={handleInput}
                     onKeyDown={handleKeyDown}
                     onFocus={handleFocus}
                     disabled={isPending}
