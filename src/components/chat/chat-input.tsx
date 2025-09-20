@@ -80,7 +80,7 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
         <Button
           type="submit"
           size="default"
-          className="h-10 px-4 shrink-0 rounded-md bg-[#a58a77] hover:bg-[#947966] text-white disabled:bg-opacity-50"
+          className="h-10 px-4 shrink-0 rounded-md"
           disabled={isPending || !isValid}
           aria-label="إرسال"
         >
