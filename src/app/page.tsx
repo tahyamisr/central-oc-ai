@@ -11,8 +11,8 @@ export default function Home() {
             <Image
               src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
               alt="شعار اللجنة المركزية للتنظيم والمراسم"
-              width={120}
-              height={40}
+              width={150}
+              height={50}
               className="object-contain"
             />
           </div>

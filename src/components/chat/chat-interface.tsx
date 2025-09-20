@@ -70,8 +70,8 @@ export function ChatInterface() {
          <Image
             src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
             alt="شعار اللجنة المركزية للتنظيم والمراسم"
-            width={240}
-            height={80}
+            width={200}
+            height={67}
             className="object-contain mb-4"
             priority
           />
