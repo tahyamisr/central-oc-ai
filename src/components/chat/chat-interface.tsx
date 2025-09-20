@@ -130,7 +130,7 @@ export function ChatInterface() {
             />
         </div>
         <Button onClick={handleSuggestion} variant="outline" className="mt-2" disabled={isPending || !isMounted}>
-            ✨ اقترح
+            اقترح سؤال ✨
         </Button>
       </div>
     </div>
@@ -150,7 +150,7 @@ export function ChatInterface() {
           onValueChange={setInput}
         />
          <Button onClick={handleSuggestion} variant="outline" className="mt-2" disabled={isPending || !isMounted}>
-            ✨ اقترح
+            اقترح سؤال ✨
         </Button>
       </CardFooter>
     </Card>
