@@ -24,7 +24,7 @@ export default function Home() {
         <ChatInterface />
       </main>
       <footer className="w-full p-4 text-center bg-background">
-        <p className="text-sm text-muted-foreground">لجنة التنظيم المركزية - اتحاد طلاب تحيا مصر</p>
+        <p className="text-sm text-muted-foreground font-bold">تنفيذ لجنة التنظيم المركزية - اتحاد طلاب تحيا مصر</p>
       </footer>
     </div>
   );
