@@ -15,19 +15,19 @@ interface ChatMessagesProps {
 }
 
 export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    if (scrollViewportRef.current) {
+      scrollViewportRef.current.scrollTo({
+        top: scrollViewportRef.current.scrollHeight,
         behavior: "smooth",
       });
     }
   }, [messages]);
 
   return (
-    <ScrollArea className="h-full" viewportRef={scrollAreaRef}>
+    <ScrollArea className="h-full" viewportRef={scrollViewportRef}>
       <div className="p-4 md:p-6 space-y-6 pb-24">
         {messages.map((message) => (
           <div
