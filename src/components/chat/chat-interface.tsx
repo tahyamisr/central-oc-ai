@@ -93,7 +93,7 @@ export function ChatInterface() {
             />
             <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
             <p className="text-muted-foreground text-sm max-w-md mb-8">
-              موقعي أساعدك في أي سؤال متعلق بالكيان الشبابي
+              موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
             </p>
 
             <div className="w-full max-w-lg">
