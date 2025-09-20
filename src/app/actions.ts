@@ -36,12 +36,12 @@ export async function getAIResponse(
 
     const result = await response.json();
     
-    // The webhook is expected to return a JSON object with an `aiResponse` field.
-    if (result && typeof result.aiResponse === 'string') {
-        return { success: true, response: result.aiResponse };
+    // The webhook is expected to return a JSON array like: `[{"output": "..."}]`
+    if (Array.isArray(result) && result.length > 0 && typeof result[0].output === 'string') {
+        return { success: true, response: result[0].output };
     } else {
         console.error("Invalid response format from webhook:", result);
-        return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم. الصيغة المتوقعة: { aiResponse: '...' }" };
+        return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم. الصيغة المتوقعة: `[{\"output\": \"...\"}]`" };
     }
 
   } catch (error) {
