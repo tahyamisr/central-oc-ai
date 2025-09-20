@@ -77,19 +77,6 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex items-center w-full gap-2"
       >
-        <Button
-          type="submit"
-          size="icon"
-          className="h-10 w-10 shrink-0 rounded-md"
-          disabled={isPending || !isValid}
-          aria-label="إرسال"
-        >
-          {isPending ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            <Send className="h-5 w-5" />
-          )}
-        </Button>
         <FormField
           control={form.control}
           name="content"
@@ -113,7 +100,19 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
             </FormItem>
           )}
         />
-        
+        <Button
+          type="submit"
+          size="icon"
+          className="h-10 w-10 shrink-0 rounded-md"
+          disabled={isPending || !isValid}
+          aria-label="إرسال"
+        >
+          {isPending ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <Send className="h-5 w-5" />
+          )}
+        </Button>
       </form>
     </Form>
   );
