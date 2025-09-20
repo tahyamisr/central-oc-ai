@@ -44,6 +44,7 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
   };
 
   const ensureVisible = () => {
+    // A small delay helps ensure the keyboard has appeared on mobile devices
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
