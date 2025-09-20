@@ -4,7 +4,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { Send, Loader2, Mic } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -99,7 +99,7 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
                 <div className="relative">
                   <Textarea
                     placeholder="اسأل عن أي شئ..."
-                    className="resize-none w-full border-input border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right pr-10"
+                    className="resize-none w-full border-input border bg-card rounded-md px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-right"
                     {...field}
                     onKeyDown={handleKeyDown}
                     onFocus={ensureVisible}
@@ -107,9 +107,6 @@ export function ChatInput({ onSendMessage, isPending, isInitial }: ChatInputProp
                     disabled={isPending}
                     rows={1}
                   />
-                   <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                    <Mic className="h-5 w-5 text-gray-400" />
-                  </div>
                 </div>
               </FormControl>
               <FormMessage className="text-right"/>
