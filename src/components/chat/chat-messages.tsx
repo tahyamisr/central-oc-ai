@@ -49,7 +49,7 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
               className={cn(
                 "max-w-[85%] rounded-lg p-3 text-sm shadow-sm",
                 message.role === "user"
-                  ? "bg-[#c2a38f] text-white"
+                  ? "bg-accent text-accent-foreground"
                   : "bg-card text-card-foreground"
               )}
             >
@@ -69,8 +69,8 @@ export function ChatMessages({ messages, isPending }: ChatMessagesProps) {
             </div>
             {message.role === "user" && (
               <Avatar className="h-8 w-8 shrink-0">
-                <AvatarFallback className="bg-accent">
-                  <User className="h-5 w-5 text-accent-foreground" />
+                <AvatarFallback className="bg-muted">
+                  <User className="h-5 w-5 text-muted-foreground" />
                 </AvatarFallback>
               </Avatar>
             )}
