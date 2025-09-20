@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { getAIResponse } from "@/app/actions";
 import type { Message } from "@/lib/types";
@@ -23,6 +23,11 @@ export function ChatInterface() {
   ]);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSendMessage = (content: string) => {
     const userMessage: Message = {
@@ -77,7 +82,7 @@ export function ChatInterface() {
             </p>
          </div>
         <div className="w-full sticky bottom-0 py-4">
-          <ChatInput onSendMessage={handleSendMessage} isPending={isPending} isInitial={true} />
+          <ChatInput onSendMessage={handleSendMessage} isPending={isPending || !isMounted} isInitial={true} />
         </div>
       </div>
     );
@@ -89,7 +94,7 @@ export function ChatInterface() {
         <ChatMessages messages={messages} isPending={isPending} />
       </CardContent>
       <CardFooter className="p-0 pt-4 border-t-0">
-        <ChatInput onSendMessage={handleSendMessage} isPending={isPending} isInitial={false}/>
+        <ChatInput onSendMessage={handleSendMessage} isPending={isPending || !isMounted} isInitial={false}/>
       </CardFooter>
     </Card>
   );
