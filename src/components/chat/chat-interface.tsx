@@ -67,8 +67,8 @@ export function ChatInterface() {
             <Image
               src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
               alt="شعار اتحاد طلاب تحيا مصر"
-              width={64}
-              height={64}
+              width={80}
+              height={80}
               className="object-contain mb-6"
             />
             <h1 className="text-2xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
