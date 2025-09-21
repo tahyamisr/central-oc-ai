@@ -106,7 +106,7 @@ export function ChatInterface() {
   const handleSuggestion = async () => {
     setIsSuggestionLoading(true);
     setInput(""); 
-    await new Promise(resolve => setTimeout(resolve, 4000)); 
+    await new Promise(resolve => setTimeout(resolve, 500)); 
 
     const randomQuestion = suggestionQuestions[suggestionIndexRef.current];
     suggestionIndexRef.current = (suggestionIndexRef.current + 1) % suggestionQuestions.length;
@@ -176,3 +176,5 @@ export function ChatInterface() {
 
   return hasUserMessages ? renderChatView() : renderInitialView();
 }
+
+    

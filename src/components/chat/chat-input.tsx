@@ -98,6 +98,7 @@ export function ChatInput({ onSendMessage, isPending, value, onValueChange }: Ch
                     disabled={isPending}
                     rows={1}
                     maxRows={6}
+                    dir="auto"
                   />
                 </div>
               </FormControl>
@@ -122,3 +123,5 @@ export function ChatInput({ onSendMessage, isPending, value, onValueChange }: Ch
     </Form>
   );
 }
+
+    
