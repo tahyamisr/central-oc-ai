@@ -78,3 +78,28 @@
     @apply prose-ol:pr-4 prose-ul:pr-4;
   }
 }
+
+@layer utilities {
+  @keyframes pulse-dot {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.9);
+    }
+  }
+  .animate-pulse-dot-1 {
+    animation: pulse-dot 1.4s infinite;
+    animation-delay: 0s;
+  }
+  .animate-pulse-dot-2 {
+    animation: pulse-dot 1.4s infinite;
+    animation-delay: 0.2s;
+  }
+  .animate-pulse-dot-3 {
+    animation: pulse-dot 1.4s infinite;
+    animation-delay: 0.4s;
+  }
+}

@@ -14,7 +14,6 @@ import { ChatMessages } from "./chat-messages";
 import { ChatInput } from "./chat-input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
 
 const suggestionQuestions = [
   "إزاي نخلي أي فعالية تبقى ذكرى حلوة مش حدث عادي؟",
@@ -38,6 +37,14 @@ const suggestionQuestions = [
   "قبل ما أي متحدث يطلع على المسرح، إزاي فريق \"Backstage Team\" بيكون هو \"الدرع الخفي\" اللي بيضمن إن كل حاجة جاهزة ومفيش أي مفاجآت؟",
   "في فعالياتنا الأونلاين، إزاي فريق التنظيم الأونلاين بيقدر يحول الشاشات دي لمنصة تفاعلية وممتعة تخلي الكل مركز ومستفيد؟",
 ];
+
+const LoadingDots = () => (
+  <div className="flex items-center justify-center gap-1">
+    <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse-dot-1"></span>
+    <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse-dot-2"></span>
+    <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse-dot-3"></span>
+  </div>
+);
 
 export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -157,8 +164,7 @@ export function ChatInterface() {
           onValueChange={setInput}
         />
          <Button onClick={handleSuggestion} variant="outline" className="mt-2" disabled={isPending || !isMounted || isSuggestionLoading}>
-            {isSuggestionLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            {isSuggestionLoading ? "جاري التحميل..." : "اقترح سؤال ✨"}
+            {isSuggestionLoading ? <LoadingDots /> : "اقترح سؤال ✨"}
         </Button>
       </CardFooter>
     </Card>
