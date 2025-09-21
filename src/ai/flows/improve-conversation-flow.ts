@@ -11,12 +11,14 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+const messageSchema = z.object({
+  role: z.enum(['user', 'assistant', 'system']),
+  content: z.string(),
+});
+
 const ImproveConversationFlowInputSchema = z.object({
   userMessage: z.string().describe('The latest message from the user.'),
-  conversationHistory: z.array(z.object({
-    role: z.enum(['user', 'assistant']),
-    content: z.string(),
-  })).optional().describe('The history of the conversation as an array of objects with role and content.'),
+  conversationHistory: z.array(messageSchema.omit({ id: true })).optional().describe('The history of the conversation as an array of objects with role and content.'),
 });
 
 export type ImproveConversationFlowInput = z.infer<typeof ImproveConversationFlowInputSchema>;
@@ -37,17 +39,22 @@ const prompt = ai.definePrompt({
   output: { schema: ImproveConversationFlowOutputSchema },
   prompt: `أنت مساعد ذكاء اصطناعي مفيد وودود تتحدث باللهجة المصرية. تجري محادثة مع مستخدم.
 
-  {% if conversationHistory %}
+  {{#if conversationHistory}}
   هذا هو سجل المحادثة:
   {{#each conversationHistory}}
-  {{role}}: {{content}}
+  {{#if (eq role 'user')}}
+  user: {{content}}
+  {{else if (eq role 'assistant')}}
+  assistant: {{content}}
+  {{/if}}
   {{/each}}
-  {% endif %}
+  {{/if}}
 
   رسالة المستخدم: {{{userMessage}}}
 
   يرجى تقديم رد يواصل المحادثة بشكل طبيعي، مع الأخذ في الاعتبار الأدوار السابقة.`, // Handlebars here
 });
+
 
 const improveConversationFlowFlow = ai.defineFlow(
   {

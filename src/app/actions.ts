@@ -5,16 +5,13 @@ import { improveConversationFlow } from "@/ai/flows/improve-conversation-flow";
 import type { Message } from "@/lib/types";
 
 export async function getAIResponse(
-  history: Omit<Message, "id">[],
+  history: Message[],
   userMessage: string
 ) {
   try {
     const aiResponse = await improveConversationFlow({
-        userMessage: userMessage,
-        conversationHistory: history.map(h => ({
-            role: h.role === 'assistant' ? 'assistant' : 'user',
-            content: h.content,
-        })),
+      userMessage: userMessage,
+      conversationHistory: history,
     });
 
     if (aiResponse && aiResponse.aiResponse) {

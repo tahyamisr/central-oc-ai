@@ -52,31 +52,22 @@ export function ChatInterface() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const suggestionIndexRef = useRef(0);
 
   useEffect(() => {
     setIsMounted(true);
+    // crypto.randomUUID() is not available on the server, so we run this in useEffect.
+    // Also, we want to ensure this only runs once, on mount.
     let storedUserId = localStorage.getItem('chat_userId');
     if (!storedUserId) {
       storedUserId = crypto.randomUUID();
       localStorage.setItem('chat_userId', storedUserId);
     }
-    setUserId(storedUserId);
-
     suggestionIndexRef.current = Math.floor(Math.random() * suggestionQuestions.length);
   }, []);
 
   const handleSendMessage = (content: string) => {
-    if (!userId) {
-      toast({
-        variant: "destructive",
-        title: "خطأ",
-        description: "لم يتم تحديد هوية المستخدم. يرجى تحديث الصفحة والمحاولة مرة أخرى.",
-      });
-      return;
-    }
     if (!content.trim()) return;
 
     const userMessage: Message = {
