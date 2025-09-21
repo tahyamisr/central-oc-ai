@@ -75,5 +75,6 @@
     @apply prose-code:before:content-none prose-code:after:content-none prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:bg-muted prose-code:text-muted-foreground;
     @apply prose-blockquote:border-l-primary;
     @apply prose-table:border prose-th:p-2 prose-td:p-2 prose-tr:border-b;
+    @apply prose-ol:pr-4 prose-ul:pr-4;
   }
 }
