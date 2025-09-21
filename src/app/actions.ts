@@ -30,8 +30,8 @@ export async function getAIResponse(
 
     const aiResponse = await response.json();
 
-    if (aiResponse && aiResponse.aiResponse) {
-      return { success: true, response: aiResponse.aiResponse };
+    if (Array.isArray(aiResponse) && aiResponse.length > 0 && aiResponse[0].output) {
+      return { success: true, response: aiResponse[0].output };
     } else {
       console.error("Invalid response format from webhook:", aiResponse);
       return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم." };
