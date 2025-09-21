@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-muted/50">
+    <div className="flex flex-col h-screen bg-muted/50">
       <header className="sticky top-0 z-50 w-full bg-accent text-accent-foreground border-b">
         <div className="container flex h-16 items-center justify-start px-4 md:px-6 gap-4">
           <Image
@@ -18,10 +18,10 @@ export default function Home() {
           </span>
         </div>
       </header>
-      <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-6">
+      <main className="flex-1 flex flex-col items-center p-4 md:p-6 overflow-hidden">
         <ChatInterface />
       </main>
-      <footer className="w-full p-4 text-center bg-background">
+      <footer className="w-full p-4 text-center bg-background border-t">
         <p className="text-sm text-muted-foreground font-bold">تنفيذ لجنة التنظيم المركزية - اتحاد طلاب تحيا مصر</p>
       </footer>
     </div>

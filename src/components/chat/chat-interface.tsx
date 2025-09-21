@@ -155,7 +155,7 @@ export function ChatInterface() {
   );
 
   const renderChatView = () => (
-     <Card className="w-full max-w-2xl h-[75vh] flex flex-col shadow-none border-none bg-transparent">
+     <Card className="w-full max-w-2xl h-full flex flex-col shadow-none border-none bg-transparent">
       <CardContent className="flex-1 overflow-hidden p-0">
           <ChatMessages messages={messages} isPending={isPending} />
       </CardContent>
@@ -176,5 +176,3 @@ export function ChatInterface() {
 
   return hasUserMessages ? renderChatView() : renderInitialView();
 }
-
-    
