@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-muted/50">
       <header className="sticky top-0 z-50 w-full bg-accent text-accent-foreground border-b">
-        <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+        <div className="container flex h-16 items-center justify-end px-4 md:px-6 gap-4">
           <span className="font-bold text-xl">
             لجنة التنظيم والمراسم المركزية
           </span>
