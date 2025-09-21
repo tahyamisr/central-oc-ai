@@ -6,6 +6,9 @@ import { ThemeProvider } from '@/components/theme-provider';
 export const metadata: Metadata = {
   title: 'لجنة التنظيم والمراسم المركزية',
   description: 'مساعد ذكي لاتحاد طلاب تحيا مصر',
+  icons: {
+    icon: 'https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1',
+  },
 };
 
 export default function RootLayout({
