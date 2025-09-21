@@ -127,7 +127,7 @@ export function ChatInterface() {
 
   const renderInitialView = () => (
     <div className="flex flex-col items-center justify-center w-full max-w-2xl text-center h-full">
-       <div className="flex-grow flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center flex-grow">
           <Image
             src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
             alt="شعار اتحاد طلاب تحيا مصر"
@@ -139,16 +139,16 @@ export function ChatInterface() {
           <p className="text-foreground text-sm max-w-md mb-8">
             موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
           </p>
+          <div className="w-full px-4 md:px-0">
+            <ChatInput 
+              onSendMessage={handleSendMessage} 
+              isPending={isPending || !isMounted} 
+              isInitial={true} 
+              value={input}
+              onValueChange={setInput}
+            />
+          </div>
        </div>
-       <div className="w-full px-4 md:px-0">
-          <ChatInput 
-            onSendMessage={handleSendMessage} 
-            isPending={isPending || !isMounted} 
-            isInitial={true} 
-            value={input}
-            onValueChange={setInput}
-          />
-        </div>
     </div>
   );
 
