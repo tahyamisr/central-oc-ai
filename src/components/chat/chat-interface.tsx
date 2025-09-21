@@ -14,6 +14,7 @@ import { ChatMessages } from "./chat-messages";
 import { ChatInput } from "./chat-input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 const suggestionQuestions = [
   "إزاي نخلي أي فعالية تبقى ذكرى حلوة مش حدث عادي؟",
@@ -45,6 +46,7 @@ export function ChatInterface() {
   const { toast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -77,10 +79,10 @@ export function ChatInterface() {
     setInput("");
 
     startTransition(async () => {
-      // Pass the entire message history to the action, but strip out the IDs
-      const historyForAI = newMessages
-        .filter(m => m.role === 'user' || m.role === 'assistant')
-        .map(({ id, ...rest }) => rest);
+      const historyForAI = newMessages.map(({ id, ...rest }) => ({
+        ...rest,
+        role: rest.role === 'assistant' ? 'model' : 'user',
+      }));
 
       const result = await getAIResponse(historyForAI, content, userId);
 
@@ -97,15 +99,17 @@ export function ChatInterface() {
           title: "خطأ",
           description: result.error,
         });
-        // If the API call fails, remove the user's message from the UI
         setMessages((prev) => prev.slice(0, -1));
       }
     });
   };
 
-  const handleSuggestion = () => {
+  const handleSuggestion = async () => {
+    setIsSuggestionLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     const randomQuestion = suggestionQuestions[Math.floor(Math.random() * suggestionQuestions.length)];
     setInput(randomQuestion);
+    setIsSuggestionLoading(false);
   };
 
   const hasUserMessages = messages.some((m) => m.role === "user");
@@ -152,8 +156,9 @@ export function ChatInterface() {
           value={input}
           onValueChange={setInput}
         />
-         <Button onClick={handleSuggestion} variant="outline" className="mt-2" disabled={isPending || !isMounted}>
-            اقترح سؤال ✨
+         <Button onClick={handleSuggestion} variant="outline" className="mt-2" disabled={isPending || !isMounted || isSuggestionLoading}>
+            {isSuggestionLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            {isSuggestionLoading ? "جاري التحميل..." : "اقترح سؤال ✨"}
         </Button>
       </CardFooter>
     </Card>
