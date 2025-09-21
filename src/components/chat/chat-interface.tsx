@@ -114,7 +114,7 @@ export function ChatInterface() {
   const handleSuggestion = async () => {
     setIsSuggestionLoading(true);
     setInput(""); 
-    await new Promise(resolve => setTimeout(resolve, 1000)); 
+    await new Promise(resolve => setTimeout(resolve, 4000)); 
 
     const randomQuestion = suggestionQuestions[Math.floor(Math.random() * suggestionQuestions.length)];
     
