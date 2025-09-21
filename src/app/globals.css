@@ -102,4 +102,10 @@
     animation: pulse-dot 1.4s infinite;
     animation-delay: 0.4s;
   }
+
+  /* RTL list styles */
+  .prose-styles ol,
+  .prose-styles ul {
+    @apply list-inside;
+  }
 }
