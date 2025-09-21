@@ -6,9 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 export const metadata: Metadata = {
   title: 'لجنة التنظيم والمراسم المركزية',
   description: 'مساعد ذكي لاتحاد طلاب تحيا مصر',
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({
