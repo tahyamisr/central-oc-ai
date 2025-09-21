@@ -1,57 +1,30 @@
 
 "use server";
 
+import { improveConversationFlow } from "@/ai/flows/improve-conversation-flow";
 import type { Message } from "@/lib/types";
-
-const WEBHOOK_URL = "https://submit.tahyamisrsu.com/webhook/OC-AI";
 
 export async function getAIResponse(
   history: Omit<Message, "id">[],
-  userMessage: string,
-  userId: string
+  userMessage: string
 ) {
-  // The webhook expects the full history, the latest user message, and a userId.
-  const payload = {
-    conversationHistory: history,
-    userMessage: userMessage,
-    userId: userId,
-  };
-
   try {
-    const response = await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
+    const aiResponse = await improveConversationFlow({
+        userMessage: userMessage,
+        conversationHistory: history.map(h => ({
+            role: h.role === 'assistant' ? 'assistant' : 'user',
+            content: h.content,
+        })),
     });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error("Webhook response not OK:", response.status, response.statusText);
-      console.error("Webhook error body:", errorBody);
-      return {
-        success: false,
-        error: `عفواً، حدث خطأ أثناء التواصل مع الخادم: ${response.statusText}`,
-      };
-    }
-
-    const result = await response.json();
-    
-    // The webhook is expected to return a JSON array like: `[{"output": "..."}]`
-    if (Array.isArray(result) && result.length > 0 && typeof result[0].output === 'string') {
-        return { success: true, response: result[0].output };
+    if (aiResponse && aiResponse.aiResponse) {
+      return { success: true, response: aiResponse.aiResponse };
     } else {
-        console.error("Invalid response format from webhook:", result);
-        return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم. الصيغة المتوقعة: `[{\"output\": \"...\"}]`" };
+      console.error("Invalid response format from AI flow:", aiResponse);
+      return { success: false, error: "عفواً، تم استلام رد غير صالح من الخادم." };
     }
-
   } catch (error) {
-    console.error("Error calling webhook:", error);
-    // Check for specific fetch errors if possible, otherwise return a generic message.
-    if (error instanceof TypeError) { // Often indicates a network error
-        return { success: false, error: "عفواً، حدث خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت."};
-    }
+    console.error("Error calling AI flow:", error);
     return {
       success: false,
       error: "عفواً، حدث خطأ غير متوقع. برجاء المحاولة مرة أخرى.",

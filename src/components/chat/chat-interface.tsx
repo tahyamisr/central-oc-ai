@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { getAIResponse } from "@/app/actions";
 import type { Message } from "@/lib/types";
@@ -54,6 +54,7 @@ export function ChatInterface() {
   const [isMounted, setIsMounted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
+  const suggestionIndexRef = useRef(0);
 
   useEffect(() => {
     setIsMounted(true);
@@ -63,6 +64,8 @@ export function ChatInterface() {
       localStorage.setItem('chat_userId', storedUserId);
     }
     setUserId(storedUserId);
+
+    suggestionIndexRef.current = Math.floor(Math.random() * suggestionQuestions.length);
   }, []);
 
   const handleSendMessage = (content: string) => {
@@ -86,12 +89,9 @@ export function ChatInterface() {
     setInput("");
 
     startTransition(async () => {
-      const historyForAI = newMessages.map(({ id, ...rest }) => ({
-        ...rest,
-        role: rest.role === 'assistant' ? 'model' : 'user',
-      }));
+      const historyForAI = newMessages.map(({ id, ...rest }) => rest);
 
-      const result = await getAIResponse(historyForAI, content, userId);
+      const result = await getAIResponse(historyForAI, content);
 
       if (result.success) {
         const assistantMessage: Message = {
@@ -116,7 +116,8 @@ export function ChatInterface() {
     setInput(""); 
     await new Promise(resolve => setTimeout(resolve, 4000)); 
 
-    const randomQuestion = suggestionQuestions[Math.floor(Math.random() * suggestionQuestions.length)];
+    const randomQuestion = suggestionQuestions[suggestionIndexRef.current];
+    suggestionIndexRef.current = (suggestionIndexRef.current + 1) % suggestionQuestions.length;
     
     let currentIndex = 0;
     const interval = setInterval(() => {
