@@ -113,10 +113,21 @@ export function ChatInterface() {
 
   const handleSuggestion = async () => {
     setIsSuggestionLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    setInput(""); 
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
+
     const randomQuestion = suggestionQuestions[Math.floor(Math.random() * suggestionQuestions.length)];
-    setInput(randomQuestion);
-    setIsSuggestionLoading(false);
+    
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex < randomQuestion.length) {
+        setInput(prev => prev + randomQuestion[currentIndex]);
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        setIsSuggestionLoading(false);
+      }
+    }, 50);
   };
 
   const hasUserMessages = messages.some((m) => m.role === "user");
