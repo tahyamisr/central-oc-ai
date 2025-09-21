@@ -5,7 +5,8 @@ import type { Message } from "@/lib/types";
 
 export async function getAIResponse(
   history: Message[],
-  userMessage: string
+  userMessage: string,
+  userId: string | null
 ) {
   try {
     const response = await fetch("https://submit.tahyamisrsu.com/webhook/OC-AI", {
@@ -14,6 +15,7 @@ export async function getAIResponse(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        userId: userId,
         userMessage: userMessage,
         conversationHistory: history,
       }),

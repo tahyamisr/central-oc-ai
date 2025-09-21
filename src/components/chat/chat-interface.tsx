@@ -54,21 +54,22 @@ export function ChatInterface() {
   const [isMounted, setIsMounted] = useState(false);
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const suggestionIndexRef = useRef(0);
+  const [userId, setUserId] = useState<string | null>(null);
+
 
   useEffect(() => {
     setIsMounted(true);
-    // crypto.randomUUID() is not available on the server, so we run this in useEffect.
-    // Also, we want to ensure this only runs once, on mount.
     let storedUserId = localStorage.getItem('chat_userId');
     if (!storedUserId) {
       storedUserId = crypto.randomUUID();
       localStorage.setItem('chat_userId', storedUserId);
     }
+    setUserId(storedUserId);
     suggestionIndexRef.current = Math.floor(Math.random() * suggestionQuestions.length);
   }, []);
 
   const handleSendMessage = (content: string) => {
-    if (!content.trim()) return;
+    if (!content.trim() || !userId) return;
 
     const userMessage: Message = {
       id: crypto.randomUUID(),
@@ -82,7 +83,7 @@ export function ChatInterface() {
     startTransition(async () => {
       const historyForAI = newMessages.map(({ id, ...rest }) => rest);
 
-      const result = await getAIResponse(historyForAI, content);
+      const result = await getAIResponse(historyForAI, content, userId);
 
       if (result.success) {
         const assistantMessage: Message = {
