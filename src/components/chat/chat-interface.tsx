@@ -73,6 +73,7 @@ export function ChatInterface() {
     if (!content.trim() || !userId) return;
 
     if (sendSoundRef.current) {
+        sendSoundRef.current.volume = 0.3;
         sendSoundRef.current.play().catch(error => console.error("Audio playback failed:", error));
     }
 
