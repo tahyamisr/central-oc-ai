@@ -131,12 +131,12 @@ export function ChatInterface() {
           <Image
             src="https://www.dropbox.com/scl/fi/2ypsrr8n9lj9daty5sq5x/Central-OC.png?rlkey=9ujc2o9sj96vfrgofbqllt6ni&raw=1"
             alt="شعار اتحاد طلاب تحيا مصر"
-            width={80}
-            height={80}
+            width={100}
+            height={100}
             className="object-contain mb-6"
           />
-          <h1 className="text-3xl font-bold mb-2">أهلاً وسهلاً بحضرتك</h1>
-          <p className="text-foreground text-base max-w-md mb-8">
+          <h1 className="text-4xl font-bold mb-4">أهلاً وسهلاً بحضرتك</h1>
+          <p className="text-foreground text-lg max-w-md mb-8">
             موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
           </p>
           <div className="w-full px-4 md:px-0">
