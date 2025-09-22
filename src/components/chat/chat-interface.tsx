@@ -133,7 +133,7 @@ export function ChatInterface() {
             alt="شعار اتحاد طلاب تحيا مصر"
             width={100}
             height={100}
-            className="object-contain mb-6"
+            className="object-contain mb-6 drop-shadow-lg"
           />
           <h1 className="text-4xl font-bold mb-4">أهلاً وسهلاً بحضرتك</h1>
           <p className="text-foreground text-lg max-w-md mb-8">
@@ -174,3 +174,5 @@ export function ChatInterface() {
 
   return hasUserMessages ? renderChatView() : renderInitialView();
 }
+
+    
