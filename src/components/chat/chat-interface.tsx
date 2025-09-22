@@ -55,6 +55,7 @@ export function ChatInterface() {
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const suggestionIndexRef = useRef(0);
   const [userId, setUserId] = useState<string | null>(null);
+  const sendSoundRef = useRef<HTMLAudioElement>(null);
 
 
   useEffect(() => {
@@ -70,6 +71,10 @@ export function ChatInterface() {
 
   const handleSendMessage = (content: string) => {
     if (!content.trim() || !userId) return;
+
+    if (sendSoundRef.current) {
+        sendSoundRef.current.play().catch(error => console.error("Audio playback failed:", error));
+    }
 
     const userMessage: Message = {
       id: crypto.randomUUID(),
@@ -172,7 +177,10 @@ export function ChatInterface() {
     </Card>
   );
 
-  return hasUserMessages ? renderChatView() : renderInitialView();
+  return (
+    <>
+      {hasUserMessages ? renderChatView() : renderInitialView()}
+      <audio ref={sendSoundRef} src="https://firebasestorage.googleapis.com/v0/b/genkit-red-425208.appspot.com/o/message-sent.mp3?alt=media&token=89326e73-9031-417e-8557-79a838575510" preload="auto" />
+    </>
+  );
 }
-
-    
