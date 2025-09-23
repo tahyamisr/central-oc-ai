@@ -141,8 +141,8 @@ export function ChatInterface() {
             height={100}
             className="object-contain mb-6 drop-shadow-lg"
           />
-          <h1 className="text-4xl font-bold mb-4">أهلاً وسهلاً بحضرتك</h1>
-          <p className="text-foreground text-lg max-w-md mb-8">
+          <h1 className="text-3xl font-bold mb-4">أهلاً وسهلاً بحضرتك</h1>
+          <p className="text-foreground text-base max-w-md mb-8">
             موقعي اساعدك بكل ما يتعلق باللجنة المركزية للتنظيم
           </p>
           <div className="w-full px-4 md:px-0">
